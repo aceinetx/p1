@@ -31,4 +31,13 @@ class LanguageDatabase:
         """, (name))
         row = self.cur.fetchall()
         return Function(row[0][0], row[0][1], row[0][2])
-
+    
+    def get_functions(self) -> [Function]:
+        self.cur.execute("""
+        SELECT name, argument_count, translate_to FROM language
+        """)
+        rows = self.cur.fetchall()
+        functions = []
+        for row in rows:
+            functions.append(Function(row[0], row[1], row[2]))
+        return functions
