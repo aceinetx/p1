@@ -5,13 +5,13 @@ from translator import Translator
 
 def main() -> int:
     db = LanguageDatabase()
-    db.add(Function("Для ч в", 0, "for ч in"))
-    db.add(Function("Пиши_давай!", 0, "print"))
-    db.add(Function("есть_чо_сказать?", 0, "input"))
-    db.add(Function("число", 0, "int"))
-    db.add(Function("Коли", 0, "if"))
-    db.add(Function("Э,_стапе", 0, "break"))
-    db.add(Function("Разбросище", 0, "range"))
+    db.add(Function("Для ч в", "for ч in"))
+    db.add(Function("Пиши_давай!", "print"))
+    db.add(Function("есть_чо_сказать?", "input"))
+    db.add(Function("число", "int"))
+    db.add(Function("Коли", "if"))
+    db.add(Function("Э,_стапе", "break"))
+    db.add(Function("Разбросище", "range"))
 
     translator = Translator(db)
     code = translator.translate('''
@@ -19,7 +19,7 @@ def main() -> int:
 Для ч в Разбросище(0, х):
     Пиши_давай!(ч)
     Коли ч == х // 2:
-        Пиши_давай!("А все!")
+        Пиши_давай!("")
         Э,_стапе
     ''')
     print(code)
