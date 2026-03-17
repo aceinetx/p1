@@ -8,8 +8,9 @@ class LanguageDatabase:
 
         self.cur.execute("""
         CREATE TABLE IF NOT EXISTS language (
-            function TEXT,
-            arguments INTEGER
+            name TEXT,
+            argument_count INTEGER,
+            translate_to TEXT
         )
         """)
 
@@ -20,14 +21,14 @@ class LanguageDatabase:
 
     def add(self, function: Function) -> None:
         self.cur.execute("""
-        INSERT INTO language (function, arguments) VALUES (?, ?)
-        """, (function.name, function.argument_count))
+        INSERT INTO language (name, argument_count, translate_to) VALUES (?, ?, ?)
+        """, (function.name, function.argument_count, function.translate_to))
         self.db.commit()
 
     def get_function(self, name: str) -> Function:
         self.cur.execute("""
-        SELECT function, arguments FROM language WHERE function = ?
+        SELECT name, argument_count, translate_to FROM language WHERE function = ?
         """, (name))
         row = self.cur.fetchall()
-        return Function(row[0][0], row[0][1])
+        return Function(row[0][0], row[0][1], row[0][2])
 
